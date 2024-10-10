@@ -3,7 +3,9 @@ const app = express();
 const port = 5000;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const config = require('./config/key');
 const { User } = require("./models/User");
+
 
 // urlencoded 형식의 데이터를 파싱하기 위해 bodyParser 사용
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -11,12 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // MongoDB에 연결
-mongoose.connect('mongodb+srv://vtwin123456:1rlaglacks@boilerplate.xkisk.mongodb.net/?retryWrites=true&w=majority&appName=boilerplate')
+mongoose.connect(config.mongoURI)
     .then(() => console.log('MongoDB Connected..'))
     .catch(err => console.log(err));
 
 // 기본 라우트 설정
-app.get('/', (req, res) => res.send("Hello World "));
+app.get('/', (req, res) => res.send("Hello World 반갑습니다 "));
 
 // 회원가입 처리 라우트
 app.post('/register', async (req, res) => {
